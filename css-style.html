@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Styling</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="main_quiz">
+        <div class="total">Total Questions:0</div>
+        <h2 class="question" id="question">Quiz 1</h2>
+        <hr />
+        <ul>
+          <li>
+            <input type="radio" name="answer" class="answer" id="a" />
+            <label for="a" id="option_1">Quiz Answer 1</label>
+          </li>
+          <li>
+            <input type="radio" name="answer" class="answer" id="b" />
+            <label for="b" id="option_2">Quiz Answer 2</label>
+          </li>
+          <li>
+            <input type="radio" name="answer" class="answer" id="c" />
+            <label for="c" id="option_3">Quiz Answer 3</label>
+          </li>
+          <li>
+            <input type="radio" name="answer" class="answer" id="d" />
+            <label for="d" id="option_4">Quiz Answer 4</label>
+          </li>
+        </ul>
+        <hr />
+        <div class="btn">
+          <button type="submit" id="submit">Submit</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- JavaScript Code -->
+
+    <script>
+      const cssQuestions = [
+        {
+          question: "What does CSS stand for?",
+          options: [
+            "Cascading Style Sheets",
+            "Cascading Script Styles",
+            "Creative Style Sheets",
+            "Coded Style Sheets",
+          ],
+          correct: 0,
+        },
+        {
+          question: "Which property is used to change the text color in CSS?",
+          options: ["color", "text-color", "font-color", "text-style"],
+          correct: 0,
+        },
+        {
+          question: "What property is used to control the size of text in CSS?",
+          options: ["font-size", "text-size", "font-style", "size"],
+          correct: 0,
+        },
+        {
+          question: "Which property is used to add background color in CSS?",
+          options: [
+            "background-color",
+            "bgcolor",
+            "color-background",
+            "background",
+          ],
+          correct: 0,
+        },
+        {
+          question:
+            "Which of the following is NOT a valid value for the display property?",
+          options: ["inline-block", "block", "flex", "center"],
+          correct: 3,
+        },
+        {
+          question:
+            "Which property is used to add space between the elements' border and content in CSS?",
+          options: ["padding", "margin", "spacing", "border-spacing"],
+          correct: 0,
+        },
+        {
+          question: "Which property is used to change the font of text in CSS?",
+          options: ["font-family", "text-font", "font-type", "text-family"],
+          correct: 0,
+        },
+        {
+          question:
+            "Which property is used to change the thickness of the border in CSS?",
+          options: [
+            "border-width",
+            "thickness",
+            "border-thickness",
+            "border-style",
+          ],
+          correct: 0,
+        },
+        {
+          question: "What does the 'CSS Box Model' consist of?",
+          options: [
+            "Content, padding, border, margin",
+            "Text, margin, padding, border",
+            "Content, text, border, margin",
+            "Padding, text, border, spacing",
+          ],
+          correct: 0,
+        },
+        {
+          question: "Which property is used to change the order of flex items?",
+          options: ["order", "flex-order", "item-order", "flex-direction"],
+          correct: 0,
+        },
+      ];
+
+      // main function
+
+      // Selecting DOM elements
+      const main_quiz = document.querySelector(".main_quiz");
+      const answerElm = document.querySelectorAll(".answer ");
+      const total = document.querySelector(".total");
+
+      // Multipule options at once
+      const [questionElm, option_1, option_2, option_3, option_4] =
+        document.querySelectorAll(
+          "#question, #option_1, #option_2, #option_3, #option_4"
+        );
+
+      const submitBtn = document.getElementById("submit");
+
+      let currentQuiz = 0;
+      let score = 0;
+
+      // Function to load data for current question
+
+      const Data = () => {
+        const { question, options } = cssQuestions[currentQuiz];
+        questionElm.textContent = `${currentQuiz + 1}: ${question}`;
+        total.textContent = `Total Questions:${cssQuestions.length}`;
+        option_1.textContent = options[0];
+        option_2.textContent = options[1];
+        option_3.textContent = options[2];
+        option_4.textContent = options[3];
+      };
+
+      Data();
+
+      // Function to get selected option
+
+      const selectedOption = () => {
+        let answerData = Array.from(answerElm);
+        return answerData.findIndex((curElm) => curElm.checked);
+      };
+
+      // Function to deselect answer
+      const deselectAnswer = () => {
+        answerElm.forEach((curElm) => (curElm.checked = false));
+      };
+      submitBtn.addEventListener("click", () => {
+        const selectedOptionIndex = selectedOption();
+        console.log(selectedOptionIndex);
+
+        if (selectedOptionIndex === cssQuestions[currentQuiz].correct) {
+          score = score + 1;
+        }
+
+        currentQuiz++;
+
+        if (currentQuiz < cssQuestions.length) {
+          deselectAnswer();
+          Data();
+        }
+        // Result message based on score
+        else {
+          let resultMessage;
+          if (score <= 3) {
+            resultMessage =
+              "Oops! 🙁 Looks like you need more practice. Keep going!";
+          } else if (score <= 7) {
+            resultMessage = "Not bad! 🙂 You're making progress. Keep it up!";
+          } else {
+            resultMessage =
+              "Wow! 🎉 Fantastic job! You're a quiz master! Keep acing it!";
+          }
+          // Result message and score
+          main_quiz.innerHTML = `
+      <div class="result">
+      <h2>&#x1F3C6 You've scored: ${score} out of ${cssQuestions.length}</h2>
+      <p>${resultMessage}</p>
+      <button class="reload" onclick="location.reload()">Play Again <i class="fa-solid fa-rotate-right"></i></button>
+      </div>`;
+        }
+      });
+    </script>
+  </body>
+  <!-- icon kit -->
+  <script src="https://kit.fontawesome.com/d8f48d71cd.js"
+  crossorigin="anonymous"
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web Development Tools</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="main_quiz">
+        <div class="total">Total Questions:0</div>
+        <h2 class="question" id="question">Quiz 1</h2>
+        <hr />
+        <ul>
+          <li>
+            <input type="radio" name="answer" class="answer" id="a" />
+            <label for="a" id="option_1">Quiz Answer 1</label>
+          </li>
+          <li>
+            <input type="radio" name="answer" class="answer" id="b" />
+            <label for="b" id="option_2">Quiz Answer 2</label>
+          </li>
+          <li>
+            <input type="radio" name="answer" class="answer" id="c" />
+            <label for="c" id="option_3">Quiz Answer 3</label>
+          </li>
+          <li>
+            <input type="radio" name="answer" class="answer" id="d" />
+            <label for="d" id="option_4">Quiz Answer 4</label>
+          </li>
+        </ul>
+        <hr />
+        <div class="btn">
+          <button type="submit" id="submit">Submit</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- JavaScript Code -->
+
+    <script>
+      const Development_Questions = [
+        {
+          question: "Which of the following is a version control system?",
+          options: ["Git", "HTML", "CSS", "JavaScript"],
+          correct: 0,
+        },
+        {
+          question: "What does CSS stand for?",
+          options: [
+            "Cascading Style Sheets",
+            "Creative Style Sheets",
+            "Computer Style Sheets",
+            "Colorful Style Sheets",
+          ],
+          correct: 0,
+        },
+        {
+          question: "What is the primary function of JavaScript?",
+          options: [
+            "Client-side scripting",
+            "Styling web pages",
+            "Structuring web content",
+            "Managing databases",
+          ],
+          correct: 0,
+        },
+        {
+          question: "Which tool is used to manage dependencies in JavaScript?",
+          options: ["npm", "HTML", "Git", "CSS"],
+          correct: 0,
+        },
+        {
+          question: "Which tool is used for building user interfaces?",
+          options: ["React", "Node.js", "Express.js", "Angular"],
+          correct: 0,
+        },
+        {
+          question: "What is the purpose of HTML?",
+          options: [
+            "To structure web content",
+            "To style web pages",
+            "To manage databases",
+            "To define interactions",
+          ],
+          correct: 0,
+        },
+        {
+          question: "Which tool is used to create and manage databases?",
+          options: ["MySQL", "React", "Node.js", "HTML"],
+          correct: 0,
+        },
+        {
+          question: "What does IDE stand for?",
+          options: [
+            "Integrated Development Environment",
+            "Interactive Development Environment",
+            "Integrated Design Environment",
+            "Interactive Design Environment",
+          ],
+          correct: 0,
+        },
+        {
+          question: "Which tool is commonly used for responsive web design?",
+          options: ["Media queries", "JavaScript", "Bootstrap", "Angular"],
+          correct: 0,
+        },
+        {
+          question: "What is the purpose of a CSS preprocessor?",
+          options: [
+            "To generate CSS",
+            "To execute JavaScript",
+            "To query databases",
+            "To structure HTML",
+          ],
+          correct: 0,
+        },
+      ];
+
+      // main function
+
+      // Selecting DOM elements
+      const main_quiz = document.querySelector(".main_quiz");
+      const answerElm = document.querySelectorAll(".answer ");
+      const total = document.querySelector(".total");
+
+      // Multipule options at once
+      const [questionElm, option_1, option_2, option_3, option_4] =
+        document.querySelectorAll(
+          "#question, #option_1, #option_2, #option_3, #option_4"
+        );
+
+      const submitBtn = document.getElementById("submit");
+
+      let currentQuiz = 0;
+      let score = 0;
+
+      // Function to load data for current question
+
+      const Data = () => {
+        const { question, options } = Development_Questions[currentQuiz];
+        questionElm.textContent = `${currentQuiz + 1}: ${question}`;
+        total.textContent = `Total Questions:${Development_Questions.length}`;
+        option_1.textContent = options[0];
+        option_2.textContent = options[1];
+        option_3.textContent = options[2];
+        option_4.textContent = options[3];
+      };
+
+      Data();
+
+      // Function to get selected option
+
+      const selectedOption = () => {
+        let answerData = Array.from(answerElm);
+        return answerData.findIndex((curElm) => curElm.checked);
+      };
+
+      // Function to deselect answer
+      const deselectAnswer = () => {
+        answerElm.forEach((curElm) => (curElm.checked = false));
+      };
+      submitBtn.addEventListener("click", () => {
+        const selectedOptionIndex = selectedOption();
+        console.log(selectedOptionIndex);
+
+        if (
+          selectedOptionIndex === Development_Questions[currentQuiz].correct
+        ) {
+          score = score + 1;
+        }
+
+        currentQuiz++;
+
+        if (currentQuiz < Development_Questions.length) {
+          deselectAnswer();
+          Data();
+        }
+        // Result message based on score
+        else {
+          let resultMessage;
+          if (score <= 3) {
+            resultMessage =
+              "Oops! 🙁 Looks like you need more practice. Keep going!";
+          } else if (score <= 7) {
+            resultMessage = "Not bad! 🙂 You're making progress. Keep it up!";
+          } else {
+            resultMessage =
+              "Wow! 🎉 Fantastic job! You're a quiz master! Keep acing it!";
+          }
+          // Result message and score
+          main_quiz.innerHTML = `
+      <div class="result">
+      <h2>&#x1F3C6 You've scored: ${score} out of ${Development_Questions.length}</h2>
+      <p>${resultMessage}</p>
+      <button class="reload" onclick="location.reload()">Play Again <i class="fa-solid fa-rotate-right"></i></button>
+      </div>`;
+        }
+      });
+    </script>
+  </body>
+  <!-- icon kit -->
+  <script src="https://kit.fontawesome.com/d8f48d71cd.js"
+  crossorigin="anonymous"
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML Basics</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="main_quiz">
+        <div class="total">Total Questions:0</div>
+        <h2 class="question" id="question">Quiz 1</h2>
+        <hr />
+        <ul>
+          <li>
+            <input type="radio" name="answer" class="answer" id="a" />
+            <label for="a" id="option_1">Quiz Answer 1</label>
+          </li>
+          <li>
+            <input type="radio" name="answer" class="answer" id="b" />
+            <label for="b" id="option_2">Quiz Answer 2</label>
+          </li>
+          <li>
+            <input type="radio" name="answer" class="answer" id="c" />
+            <label for="c" id="option_3">Quiz Answer 3</label>
+          </li>
+          <li>
+            <input type="radio" name="answer" class="answer" id="d" />
+            <label for="d" id="option_4">Quiz Answer 4</label>
+          </li>
+        </ul>
+        <hr />
+        <div class="btn">
+          <button type="submit" id="submit">Submit</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- JavaScript Code -->
+
+    <script>
+      const quizData = [
+        {
+          question: "What does HTML stand for?",
+          options: [
+            "Hypertext Markup Language",
+            "Hypertext Mark Language",
+            "Hypertransfer Markup Language",
+            "Hyper Markup Language",
+          ],
+          correct: 0,
+        },
+        {
+          question: "Which HTML element is used to define an unordered list?",
+          options: ["<ol>", "<list>", "<ul>", "<dl>"],
+          correct: 2,
+        },
+        {
+          question: "What does the <div> element represent in HTML?",
+          options: ["Division", "Document", "Description", "Display"],
+          correct: 0,
+        },
+        {
+          question:
+            "Which attribute specifies the URL of the page the link goes to?",
+          options: ["href", "link", "url", "src"],
+          correct: 0,
+        },
+        {
+          question: "Which HTML tag is used to define an image?",
+          options: ["<img>", "<image>", "<picture>", "<src>"],
+          correct: 0,
+        },
+        {
+          question: "What is the correct HTML for creating a hyperlink?",
+          options: [
+            "<a href='http://www.example.com'>Example</a>",
+            "<href='http://www.example.com'>Example</a>",
+            "<a url='http://www.example.com'>Example</a>",
+            "<a link='http://www.example.com'>Example</a>",
+          ],
+          correct: 0,
+        },
+        {
+          question: "Which tag is used to define the metadata in HTML?",
+          options: ["<head>", "<meta>", "<title>", "<style>"],
+          correct: 1,
+        },
+        {
+          question: "What is the correct HTML for creating a checkbox?",
+          options: [
+            "<input type='checkbox'>",
+            "<checkbox>",
+            "<input type='check'>",
+            "<check>",
+          ],
+          correct: 0,
+        },
+        {
+          question:
+            "Which HTML tag is used to define the body of the document?",
+          options: ["<body>", "<page>", "<html>", "<document>"],
+          correct: 0,
+        },
+        {
+          question:
+            "Which attribute is used to provide additional information about an element?",
+          options: ["alt", "title", "href", "src"],
+          correct: 1,
+        },
+      ];
+
+      // main function
+
+      // Selecting DOM elements
+      const main_quiz = document.querySelector(".main_quiz");
+      const answerElm = document.querySelectorAll(".answer ");
+      const total = document.querySelector(".total");
+
+      // Multipule options at once
+      const [questionElm, option_1, option_2, option_3, option_4] =
+        document.querySelectorAll(
+          "#question, #option_1, #option_2, #option_3, #option_4"
+        );
+
+      const submitBtn = document.getElementById("submit");
+
+      let currentQuiz = 0;
+      let score = 0;
+
+      // Function to load data for current question
+
+      const Data = () => {
+        const { question, options } = quizData[currentQuiz];
+        questionElm.textContent = `${currentQuiz + 1}: ${question}`;
+        total.textContent = `Total Questions: ${quizData.length}`;
+        option_1.textContent = options[0];
+        option_2.textContent = options[1];
+        option_3.textContent = options[2];
+        option_4.textContent = options[3];
+      };
+
+      Data();
+
+      // Function to get selected option
+
+      const selectedOption = () => {
+        let answerData = Array.from(answerElm);
+        return answerData.findIndex((curElm) => curElm.checked);
+      };
+
+      // Function to deselect answer
+      const deselectAnswer = () => {
+        answerElm.forEach((curElm) => (curElm.checked = false));
+      };
+      submitBtn.addEventListener("click", () => {
+        const selectedOptionIndex = selectedOption();
+        console.log(selectedOptionIndex);
+
+        if (selectedOptionIndex === quizData[currentQuiz].correct) {
+          score = score + 1;
+        }
+
+        currentQuiz++;
+
+        if (currentQuiz < quizData.length) {
+          deselectAnswer();
+          Data();
+        }
+        // Result message based on score
+        else {
+          let resultMessage;
+          if (score <= 3) {
+            resultMessage =
+              "Oops! 🙁 Looks like you need more practice. Keep going!";
+          } else if (score <= 7) {
+            resultMessage = "Not bad! 🙂 You're making progress. Keep it up!";
+          } else {
+            resultMessage =
+              "Wow! 🎉 Fantastic job! You're a quiz master! Keep acing it!";
+          }
+          // Result message and score
+          main_quiz.innerHTML = `
+      <div class="result">
+      <h2>&#x1F3C6 You've scored: ${score} out of ${quizData.length}</h2>
+      <p>${resultMessage}</p>
+      <button class="reload" onclick="location.reload()">Play Again <i class="fa-solid fa-rotate-right"></i></button>
+      </div>`;
+        }
+      });
+    </script>
+  </body>
+  <!-- icon kit -->
+  <script src="https://kit.fontawesome.com/d8f48d71cd.js"
+  crossorigin="anonymous"
+</html>
