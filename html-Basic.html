@@ -174,7 +174,7 @@
           if (score <= 3) {
             resultMessage =
               "Oops! 🙁 Looks like you need more practice. Keep going!";
-          } else if (score <= 7) {
+          } else if (score <= 6) {
             resultMessage = "Not bad! 🙂 You're making progress. Keep it up!";
           } else {
             resultMessage =
@@ -185,7 +185,8 @@
       <div class="result">
       <h2>&#x1F3C6 You've scored: ${score} out of ${quizData.length}</h2>
       <p>${resultMessage}</p>
-      <button class="reload" onclick="location.reload()">Play Again <i class="fa-solid fa-rotate-right"></i></button>
+      <button class="reload" onclick="location.reload()">Play Again</button>
+      <a href="index.html"><button class="home">Topics</button></a>
       </div>`;
         }
       });
