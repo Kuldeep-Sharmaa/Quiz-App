@@ -183,3 +183,17 @@ button[type="submit"]:hover {
   text-align: end;
   margin-bottom: 10px;
 }
+.love {
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  font-family: "Courier New";
+  align-items: center;
+  color: #ffff;
+}
+
+.art {
+  margin: 5px;
+  font-weight: 800;
+  color: rgb(199, 25, 25);
+}
