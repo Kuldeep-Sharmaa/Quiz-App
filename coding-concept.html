@@ -186,10 +186,7 @@
       submitBtn.addEventListener("click", () => {
         const selectedOptionIndex = selectedOption();
         console.log(selectedOptionIndex);
-        if (selectedOptionIndex === -1) {
-          alert("Please Select an Answer");
-          return;
-        }
+
         if (
           selectedOptionIndex === codingConceptsQuestions[currentQuiz].correct
         ) {

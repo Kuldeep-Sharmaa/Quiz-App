@@ -137,6 +137,20 @@
       const deselectAnswer = () => {
         answerElm.forEach((curElm) => (curElm.checked = false));
       };
+
+      //  Shuffle algorithm
+      function shuffleQuestions() {
+        for (let i = mathLogicQuestions.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [mathLogicQuestions[i], mathLogicQuestions[j]] = [
+            mathLogicQuestions[j],
+            mathLogicQuestions[i],
+          ];
+        }
+      }
+      // Call the function
+      shuffleQuestions();
+
       submitBtn.addEventListener("click", () => {
         const selectedOptionIndex = selectedOption();
         console.log(selectedOptionIndex);

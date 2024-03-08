@@ -154,6 +154,20 @@
       const deselectAnswer = () => {
         answerElm.forEach((curElm) => (curElm.checked = false));
       };
+
+      //  Shuffle algorithm
+      function shuffleQuestions() {
+        for (let i = html_Questions.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [html_Questions[i], html_Questions[j]] = [
+            html_Questions[j],
+            html_Questions[i],
+          ];
+        }
+      }
+      // Call the function
+      shuffleQuestions();
+
       submitBtn.addEventListener("click", () => {
         const selectedOptionIndex = selectedOption();
         console.log(selectedOptionIndex);
