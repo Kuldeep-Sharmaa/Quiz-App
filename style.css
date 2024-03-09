@@ -33,12 +33,17 @@
   color: #ffff;
   text-align: center;
 }
+h1 {
+  text-shadow: 2px 3px var(--highlight--);
+}
 .head i {
   color: var(--highlight--);
+  text-shadow: none;
 }
 .head h3 {
   margin: 40px 0 20px;
   color: var(--highlight--);
+  text-shadow: 2px 1px var(--bg-color--);
 }
 .categories {
   display: grid;
