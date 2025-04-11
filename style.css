@@ -6,6 +6,7 @@
   box-sizing: border-box;
   font-family: Arial, sans-serif;
 }
+
 :root {
   --highlight--: rgb(173, 80, 46);
   --bg-color--: #edeef0;
@@ -197,8 +198,6 @@ button[type="submit"]:hover {
   color: #ffff;
 }
 
-.art {
-  margin: 5px;
-  font-weight: 800;
-  color: rgb(199, 25, 25);
+.footer-link {
+  text-decoration: underline;
 }
